@@ -4,6 +4,9 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import com.dylan.exceler.application.config.CommonConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 
@@ -13,6 +16,10 @@ import java.io.File;
  * @Date: Create in 2017-10-25 11:13
  */
 public class FileUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+    @Autowired
+    private static CommonConfig commonConfig;
 
     public static String UploadFile(String filePath, String key) {
 
@@ -34,6 +41,7 @@ public class FileUtil {
 
     public static String DownloadFile(String key, String folderPath) {
         CommonConfig commonConfig = new CommonConfig();
+        logger.error(commonConfig.toString());
         // endpoint以杭州为例，其它region请按实际情况填写
         String endpoint = commonConfig.getEnd_point();
         // 云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用RAM子账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建

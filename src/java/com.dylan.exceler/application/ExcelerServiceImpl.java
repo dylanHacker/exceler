@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,13 +51,17 @@ public class ExcelerServiceImpl implements IExcelerService {
             int totalDay = getTotalDay(startMonth, endMonth);
             for (int i = 0; i < totalDay; i++) {
                 sheets.get(1).createRow(1).createCell(0).setCellValue("月份：");
-                sheets.get(1).getRow(1).createCell(1).setCellValue(getMonth(startMonth,totalDay) + "月");
+                sheets.get(1).getRow(1).createCell(1).setCellValue(getMonth(startMonth, totalDay) + "月");
                 sheets.get(1).getRow(1).createCell(2).setCellValue("日期：");
-                sheets.get(1).getRow(1).createCell(3).setCellValue(new Date(2017,getMonth(startMonth,totalDay),getDay(startMonth,totalDay)));
-
+                sheets.get(1).getRow(1).createCell(3).setCellValue(new Date(2017, getMonth(startMonth, totalDay), getDay(startMonth, totalDay)));
 
 
             }
+            FileOutputStream fileOutputStream = new FileOutputStream(excelFile);
+            workbook.write(fileOutputStream);
+            long time = System.currentTimeMillis();
+            FileUtil.UploadFile(filePath, String.valueOf(time));
+            return commonConfig.getPre_url() + time;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidFormatException e) {
@@ -81,23 +86,25 @@ public class ExcelerServiceImpl implements IExcelerService {
         return sum;
     }
 
-    private int getMonth(int start, int day){
-        for(int i = start;i<=12;i++){
-            if(day <= monthDays[i]){
+    private int getMonth(int start, int day) {
+        for (int i = start; i <= 12; i++) {
+            if (day <= monthDays[i]) {
                 return i;
             } else {
                 day -= monthDays[i];
             }
         }
+        return start;
     }
 
-    private int getDay(int start, int day){
-        for(int i = start;i<=12;i++){
-            if(day <= monthDays[i]){
+    private int getDay(int start, int day) {
+        for (int i = start; i <= 12; i++) {
+            if (day <= monthDays[i]) {
                 return day;
             } else {
                 day -= monthDays[i];
             }
         }
+        return start;
     }
 }

@@ -50,7 +50,7 @@ public class ExcelerController {
     @PostMapping(IExceler.API_FOUR_FEE_TABLE)
     public ResponseEntity<ProcessRes> fourFeeTable(@RequestBody ProcessParam processParam) {
 
-        String url = excelerService.makeFourFeesTable(processParam.getUrl());
+        String url = excelerService.makeFourFeesTable(processParam);
         ProcessRes processRes = new ProcessRes();
         if(StringUtils.isEmpty(url)){
             processRes
