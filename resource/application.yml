@@ -1,0 +1,20 @@
+server:
+   port: 9999
+   context-path:  /Exceler
+
+logging:
+  level:
+#    root: DEBUG
+    root: INFO
+
+envconfig:
+
+  #阿里云sdk
+  access_key_id: LTAI7HeQrl4Wwe6V
+  access_key_secret: 4rOC2MgcW4MbrToWkAVQem2c2sGXzg
+  end_point: oss-cn-shanghai.aliyuncs.com
+  bucket_name: dylan-c
+  pre_url: http://dylan-c.oss-cn-shanghai.aliyuncs.com/
+
+  #缓存文件夹
+  tmp_folder: ./tmp/
