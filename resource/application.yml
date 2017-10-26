@@ -1,6 +1,6 @@
 server:
-   port: 9999
-   context-path:  /Exceler
+  port: 9999
+  context-path:  /Exceler
 
 logging:
   level:
